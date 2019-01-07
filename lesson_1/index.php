@@ -2,14 +2,14 @@
 <?php
 
 if (isset($_POST['submit'])){
-    $way = [$_POST['text']];
+$way = [$_POST['text']];
 }else {
-    $way = ['../'];
+$way = ['../'];
 };
 
 foreach (new DirectoryIterator(implode("",$way)) as $fileInfo) {
-    if($fileInfo->isDot()) continue;
-    echo $fileInfo->getFilename() . "<br>\n";
+if($fileInfo->isDot()) continue;
+echo $fileInfo->getFilename() . "<br>\n";
 }
 ?>
 
