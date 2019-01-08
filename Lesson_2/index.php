@@ -7,45 +7,55 @@
  */
 
 
-$array = [300, 1000, 1, 54, 1, 23, 1, 1000, 3000, 40000, 10, 4, 5, 3, 1, 4];
-/*for ($i = 0; $i < 20; $i++) {
+$array = [];
+for ($i = 0; $i < 20; $i++) {
     $array[] = rand(-10, 40);
-}*/
-
-print_r(merger_sort($array));
-
-function merger_sort($arr)
-{
-    $first_arr = [];
-    $second_arr = [];
-
-    $arr_new = array_chunk($arr, 2);
-    foreach ($arr_new as $elem) {
-        if ($elem[0] > $elem[1]) {
-            list($elem[0], $elem[1]) = array($elem[1], $elem[0]);
-        }
-        $first_arr[] = $elem;
-
-    }
-  /*print_r($first_arr);
-    echo '<br>';*/
-
-    for ($i = 0; $i <count($first_arr); $i++) {
-        for ($g = 1; $g <count($first_arr); $g++) {
-           /* if ($first_arr[$i][0] >= $first_arr[$g][0]) {
-                list($first_arr[$i][0], $first_arr[$g][0]) = array($first_arr[$g][0], $first_arr[$i][0]);
-            }*/
-            print_r($first_arr[$i]);
-            echo '<br>';
-            print_r($first_arr[$g]);
-            echo '<br>';
-            echo '<br>';
-
-        }
-    }
-    /*if ($first_arr[0][0] > $first_arr[1][0]) {
-        list($first_arr[0][0], $first_arr[1][0]) = array($first_arr[1][0], $first_arr[0][0]);
-    }*/
-
-    return $first_arr ;
 }
+
+print_r(mergeSort($array));
+
+
+function mergeSort($Array)
+{
+    $len = count($Array);
+    if ($len == 1) {
+        return $Array;
+    }
+    $mid = (int)$len / 2;
+    $left = mergeSort(array_slice($Array, 0, $mid));
+    $right = mergeSort(array_slice($Array, $mid));
+    return merge($left, $right);
+}
+
+function merge($left, $right)
+{
+
+
+    $combined = [];
+    $totalLeft = count($left);
+    $totalRight = count($right);
+    $rightIndex = $leftIndex = 0;
+    while ($leftIndex < $totalLeft && $rightIndex < $totalRight) {
+        if ($left[$leftIndex] > $right[$rightIndex]) {
+            $combined[] = $right[$rightIndex];
+            $rightIndex++;
+        } else {
+            $combined[] = $left[$leftIndex];
+            $leftIndex++;
+        }
+    }
+    while ($leftIndex < $totalLeft) {
+        $combined[] = $left[$leftIndex];
+        $leftIndex++;
+    }
+    while ($rightIndex < $totalRight) {
+        $combined[] = $right[$rightIndex];
+        $rightIndex++;
+    }
+    return $combined;
+}
+
+
+
+
+
